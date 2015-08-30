@@ -60,3 +60,14 @@ body {
 .top-button-logout:hover{
 	background-color: #d35400 !important;
 }
+.edit {
+    padding-bottom: 5px !important;
+    padding-top: 5px !important;
+    margin-bottom: 0px !important;
+}
+.delete {
+	background-color: #e74c3c !important;
+}
+.delete:hover {
+	background-color: #c0392b !important;
+}

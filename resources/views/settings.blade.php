@@ -43,7 +43,7 @@ My Money - Settings
 	<div class="row">
 		<div class="large-6 columns">
 	      <label>Date
-	        <input type="datetime" class="ddatepicker" value="<?php $mytime = Carbon\Carbon::now(); echo $mytime->format('m/d/Y'); ?>" name="date" data-date-format="mm/dd/yy" id="dp">
+	        <input type="datetime" class="ddatepicker" value="<?php $mytime = Carbon\Carbon::now(); echo $mytime->format('m/d/Y'); ?>" name="date" data-date-format="mm/dd/yyyy" id="dp">
 	      </label>
 	    </div>
 	    <div class="large-6 columns">
@@ -97,7 +97,7 @@ My Money - Settings
 	<div class="row">
 		<div class="large-6 columns">
 	      <label>Date
-	        <input type="datetime" class="ddatepicker" value="<?php $mytime = Carbon\Carbon::now(); echo $mytime->format('m/d/Y'); ?>" name="date" data-date-format="mm/dd/yy" id="dp">
+	        <input type="datetime" class="ddatepicker" value="<?php $mytime = Carbon\Carbon::now(); echo $mytime->format('m/d/Y'); ?>" name="date" data-date-format="mm/dd/yyyy" id="dp">
 	      </label>
 	    </div>
 	    <div class="large-6 columns">
@@ -161,7 +161,7 @@ My Money - Settings
 	<div class="row">
 		<div class="large-6 columns">
 	      <label>Date
-	        <input type="datetime" class="ddatepicker" value="<?php $mytime = Carbon\Carbon::now(); echo $mytime->format('m/d/Y'); ?>" name="date" data-date-format="mm/dd/yy" id="dp">
+	        <input type="datetime" class="ddatepicker" value="<?php $mytime = Carbon\Carbon::now(); echo $mytime->format('m/d/Y'); ?>" name="date" data-date-format="mm/dd/yyyy" id="dp">
 	      </label>
 	    </div>
 	    <div class="large-6 columns">

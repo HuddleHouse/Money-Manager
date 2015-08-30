@@ -23,11 +23,11 @@
 [data-pie-id] > *:nth-child(15n+12), [data-bar-id] > *:nth-child(15n+12), [data-line-id] > *:nth-child(15n+12) {
   color: #c0392b; }
 [data-pie-id] > *:nth-child(15n+13), [data-bar-id] > *:nth-child(15n+13), [data-line-id] > *:nth-child(15n+13) {
-  color: #9b59b6; }
+  color: #E3868F; }
 [data-pie-id] > *:nth-child(15n+14), [data-bar-id] > *:nth-child(15n+14), [data-line-id] > *:nth-child(15n+14) {
-  color: #34495e; }
+  color: #9b59b6; }
 [data-pie-id] > *:nth-child(15n+15), [data-bar-id] > *:nth-child(15n+15), [data-line-id] > *:nth-child(15n+15) {
-  color: #d35400; }
+  color: #34495e; }
 
 #pie, #donut, #bar {
   max-height: 450px; }

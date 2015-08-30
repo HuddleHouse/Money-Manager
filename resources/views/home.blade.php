@@ -9,6 +9,9 @@ My Money
   <div class="row">
   	<div class="small-12 columns">
 	  	<center><h1><?php $mytime = Carbon\Carbon::now(); echo $mytime->toFormattedDateString(); ?></h1></center>
+	  	@if(Session::has('message'))
+  			<div class="alert alert-info" style="color: #008CBA; padding-bottom: 15px;"> {{Session::get('message')}} </div>
+  		@endif
   	</div>
   </div>
   <div class="row">
@@ -79,10 +82,11 @@ My Money
 				<thead>
 					<tr role="row">
 						<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Name: activate to sort column descending" style="width: 25%;">Account</th>
-						<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Type: activate to sort column ascending" style="width: 15%;">Type</th>
-						<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Amount: activate to sort column ascending" style="width: 15%;">Amount</th>
-						<th class="sorting show-for-large-only" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Note: activate to sort column ascending" style="width: 30%;">Note</th>
+						<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Type: activate to sort column ascending" style="width: 20%;">Type</th>
+						<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Amount: activate to sort column ascending" style="width: 12%;">Amount</th>
+						<th class="sorting show-for-large-only" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Note: activate to sort column ascending" style="width: 25%;">Note</th>
 						<th class="sorting-asc show-for-large-only" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" aria-sort="ascending" style="width: 15%;">Date</th>
+						<th class="sorting_disabled" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Note: activate to sort column ascending" style="width: 3%;">Edit</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -95,13 +99,18 @@ My Money
 							<td>{!! $accountNames[$trans->accountID] !!}</td>
 						@endif
 						@if($trans->typeID == NULL)
-							<td>Payment</td>
+							<td>Payment/Transer to {!! $accountNames[$trans->ccID] !!}</td>
 						@else
 							<td>{!! $typeNames[$trans->typeID] !!}</td>
 						@endif
 						<td>${!! $trans->amount !!}</td>
 						<td class="show-for-large-only">{!! $trans->note !!}</td>
 						<td class="sorting_1 show-for-large-only">{!! $trans->date !!}</td>
+						@if($trans->typeID == NULL)
+							<td class="sorting_disabled"><a href="/edit/payment/{!! $trans->id !!}" class="button info round edit">Edit</a></td>
+						@else
+							<td class="sorting_disabled"><a href="/edit/{!! $trans->id !!}" class="button info round edit">Edit</a></td>
+						@endif
 					</tr>
 					@endforeach
 					@foreach($incomeData as $in)
@@ -115,7 +124,7 @@ My Money
 						<td>${!! $in->amount !!}</td>
 						<td class="show-for-large-only">{!! $in->note !!}</td>
 						<td class="sorting_1 show-for-large-only">{!! $in->date !!}</td>
-						
+						<td class="sorting_disabled"><a href="/edit/income/{!! $trans->id !!}" class="button info round edit">Edit</a></td>
 					</tr>
 					@endforeach
 				</tbody>
@@ -128,7 +137,7 @@ My Money
 	    Pizza.init();
 $(document).ready(function(){
     $('#example').DataTable({
-	    dom: 'fltipB',
+	    dom: 'flrtipB',
 	    buttons: [
 	        'pdf'
 	    ],

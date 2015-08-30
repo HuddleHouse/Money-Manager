@@ -55,7 +55,10 @@ class SettingsController extends Controller {
 		$user = Auth::user();
         $id = Input::get('payment');
 
-
+		/*
+		*There is an invisible field called form that tells what form was submitted
+		*
+		*/
 		if(Input::get('form') == 'trans'){
             $monthNum = substr(Input::get('date'), 0, 2);
             $month = date('M', mktime(0, 0, 0, $monthNum, 10));
@@ -91,7 +94,6 @@ class SettingsController extends Controller {
 
 			$transaction->save();
 			return redirect('options')->with('message', 'Transaction added successfully.');
-
 		}
 		else if(Input::get('form') == 'type'){
 			$type = new Type;

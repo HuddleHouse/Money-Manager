@@ -28,6 +28,15 @@ Route::get('/logout', 'Auth\AuthController@getLogout');
 Route::get('/register', 'Auth\AuthController@getRegister');
 Route::post('/register', 'Auth\AuthController@postRegister');
 
+Route::get('/edit/{id}', 'EditController@index');
+Route::post('/edit/{id}', 'EditController@postIndex');
+Route::get('/edit/{id}/delete', 'EditController@deleteTransaction');
+
+Route::get('/edit/payment/{id}', 'EditController@paymentIndex');
+Route::post('/edit/payment/{id}', 'EditController@paymentPostIndex');
+
+Route::get('/edit/income/{id}', 'EditController@incomeIndex');
+Route::post('/edit/income/{id}', 'EditController@incomePostIndex');
 
 Route::controllers([
    'password' => 'Auth\PasswordController',

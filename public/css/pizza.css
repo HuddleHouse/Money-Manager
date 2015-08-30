@@ -1,0 +1,48 @@
+[data-pie-id] > *:nth-child(15n+1), [data-bar-id] > *:nth-child(15n+1), [data-line-id] > *:nth-child(15n+1) {
+  color: #1abc9c; }
+[data-pie-id] > *:nth-child(15n+2), [data-bar-id] > *:nth-child(15n+2), [data-line-id] > *:nth-child(15n+2) {
+  color: #8e44ad; }
+[data-pie-id] > *:nth-child(15n+3), [data-bar-id] > *:nth-child(15n+3), [data-line-id] > *:nth-child(15n+3) {
+  color: #34495e; }
+[data-pie-id] > *:nth-child(15n+4), [data-bar-id] > *:nth-child(15n+4), [data-line-id] > *:nth-child(15n+4) {
+  color: #2980b9; }
+[data-pie-id] > *:nth-child(15n+5), [data-bar-id] > *:nth-child(15n+5), [data-line-id] > *:nth-child(15n+5) {
+  color: #e67e22; }
+[data-pie-id] > *:nth-child(15n+6), [data-bar-id] > *:nth-child(15n+6), [data-line-id] > *:nth-child(15n+6) {
+  color: #7f8c8d; }
+[data-pie-id] > *:nth-child(15n+7), [data-bar-id] > *:nth-child(15n+7), [data-line-id] > *:nth-child(15n+7) {
+  color: #2ecc71; }
+[data-pie-id] > *:nth-child(15n+8), [data-bar-id] > *:nth-child(15n+8), [data-line-id] > *:nth-child(15n+8) {
+  color: #3498db; }
+[data-pie-id] > *:nth-child(15n+9), [data-bar-id] > *:nth-child(15n+9), [data-line-id] > *:nth-child(15n+9) {
+  color: #f1c40f; }
+[data-pie-id] > *:nth-child(15n+10), [data-bar-id] > *:nth-child(15n+10), [data-line-id] > *:nth-child(15n+10) {
+  color: #16a085; }
+[data-pie-id] > *:nth-child(15n+11), [data-bar-id] > *:nth-child(15n+11), [data-line-id] > *:nth-child(15n+11) {
+  color: #bdc3c7; }
+[data-pie-id] > *:nth-child(15n+12), [data-bar-id] > *:nth-child(15n+12), [data-line-id] > *:nth-child(15n+12) {
+  color: #c0392b; }
+[data-pie-id] > *:nth-child(15n+13), [data-bar-id] > *:nth-child(15n+13), [data-line-id] > *:nth-child(15n+13) {
+  color: #9b59b6; }
+[data-pie-id] > *:nth-child(15n+14), [data-bar-id] > *:nth-child(15n+14), [data-line-id] > *:nth-child(15n+14) {
+  color: #34495e; }
+[data-pie-id] > *:nth-child(15n+15), [data-bar-id] > *:nth-child(15n+15), [data-line-id] > *:nth-child(15n+15) {
+  color: #d35400; }
+
+#pie, #donut, #bar {
+  max-height: 450px; }
+
+svg {
+
+  height: 550px; }
+
+.tooltip {
+  margin-left: -5px;
+  border-radius: 3px;
+  padding: 5px; }
+
+ul[data-pie-id] {
+  list-style: none;
+  padding: 10px; }
+
+/*# sourceMappingURL=pizza.css.map */

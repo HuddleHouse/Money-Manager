@@ -32,6 +32,15 @@ My Money - Settings
 			<a href="#" data-reveal-id="type" class="button expand round">Add a Spending Category</a>
 		</div>
 	</div>
+	<div class="row">
+		<div class="large-12 columns">
+		<h1>TO-DO</h1>
+		Login forgot password link.
+		Register
+		edit types
+		change password
+		</div>
+	</div>
 
 <div id="income" class="reveal-modal large" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
 	<h2 id="modalTitle">Add Income.</h2>
@@ -47,7 +56,7 @@ My Money - Settings
 	      </label>
 	    </div>
 	    <div class="large-6 columns">
-	      <label>Amount
+	      <label>Amount (No commas)
 	        <input type="number" step="any" name="amount" placeholder="$5.00" />
 	      </label>
 	    </div>
@@ -101,7 +110,7 @@ My Money - Settings
 	      </label>
 	    </div>
 	    <div class="large-6 columns">
-	      <label>Amount
+	      <label>Amount (No commas)
 	        <input type="number" step="any" name="amount" placeholder="$5.00" />
 	      </label>
 	    </div>
@@ -110,19 +119,20 @@ My Money - Settings
 	<div class="row">
 
 	    <div class="large-6 columns" style="margin-bottom: 15px;">
-		  <label>Bank Account
+		  <label>From
 		    <select name="bank">
 				@foreach($accounts as $account)
 					@if($account->accountType == 'b')
 					<option value="{{ $account->id }}">{{ $account->name }}</option>
 					@endif
 				@endforeach
+				<option value="cash">Cash</option>
 		    </select>
 		  </label>
 		</div>
 
 	    <div class="large-6 columns">
-		  <label>Credit Account
+		  <label>To
 		    <select name="payment">
 				@foreach($accounts as $account)
 					<option value="{{ $account->id }}">{{ $account->name }}</option>
@@ -165,7 +175,7 @@ My Money - Settings
 	      </label>
 	    </div>
 	    <div class="large-6 columns">
-	      <label>Amount
+	      <label>Amount (No commas)
 	        <input type="number" step="any" name="amount" placeholder="$5.00" />
 	      </label>
 	    </div>
@@ -227,7 +237,7 @@ My Money - Settings
 	      </label>
 	    </div>
 	    <div class="large-6 columns">
-	      <label>Account Balance
+	      <label>Account Balance (No commas)
 	        <input type="text" name="balance" placeholder="$5.00" />
 	      </label>
 	    </div>
@@ -235,7 +245,7 @@ My Money - Settings
 
 	<div class="row">
 		<div class="large-6 columns">
-	      <label>Credit Limit
+	      <label>Credit Limit (No commas)
 	        <input type="text" name="limit" placeholder="$2,000"/>
 	      </label>
 	    </div>
@@ -272,7 +282,7 @@ My Money - Settings
 	      </label>
 	    </div>
 	    <div class="large-6 columns">
-	      <label>Account Balance
+	      <label>Account Balance (No commas)
 	        <input type="text" name="balance" placeholder="$500.00" />
 	      </label>
 	    </div>

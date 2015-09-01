@@ -46,6 +46,8 @@ class HomeController extends Controller {
 		$credits = DB::select('select * from income where userID = :id', ['id' => $user->id]);
 		$accounts = DB::select('select * from accounts where userID = :id', ['id' => $user->id]);
 		$debits = DB::select('select * from transactions where userID = :id and month = :month', ['id' => $user->id, 'month' => $month]);
+		$transfers = DB::select('select * from transfers where userID = :id and month = :month', ['id' => $user->id, 'month' => $month]);
+		$payments = DB::select('select * from payments where userID = :id and month = :month', ['id' => $user->id, 'month' => $month]);
 		
 		$accountNames = [];	
 		foreach($accounts as $account) {
@@ -61,15 +63,20 @@ class HomeController extends Controller {
 			$income += $credit->amount;
 		}
 		foreach($debits as $debit){
-			if($debit->accountID != null){
-				$account = Account::find($debit->accountID);
-				if($account->accountType != 'c'){
-					$spent += $debit->amount;	
-				}
+			if($debit->accountID == 0){
+				$spent = $spent + $debit->amount;
 			}
 			else {
-				$spent += $debit->amount;
+				//check to make sure teh cc id is not a bank if so this is a transfer and doesn't get counted
+				$account2 = Account::find($debit->accountID);
+				if($account2->accountType == 'b'){
+					//this is a payment on a cc
+					$spent = $spent + $debit->amount;
+				}
 			}
+		}
+		foreach($payments as $payment){
+			$spent = $spent + $payment->amount;
 		}
 		$profit = $income - $spent;
 		
@@ -96,7 +103,7 @@ class HomeController extends Controller {
 		}
 		$cash = DB::select('select cash from month where userID = :id and name = :month and year = :year', ['id' => $user->id, 'month' => $month, 'year' => date("Y")]);
 		
-		return view('home')->with('banks', $banks)->with('cc', $cc)->with('income', $income)->with('profit', $profit)->with('spending', $spending)->with('cash', $cash)->with('accountNames', $accountNames)->with('typeNames', $typeNames)->with('transactions', $debits)->with('incomeData', $credits);
+		return view('home')->with('banks', $banks)->with('cc', $cc)->with('income', $income)->with('profit', $profit)->with('spending', $spending)->with('cash', $cash)->with('accountNames', $accountNames)->with('typeNames', $typeNames)->with('transactions', $debits)->with('incomeData', $credits)->with('payments', $payments)->with('transfers', $transfers);
 	}
 	
 

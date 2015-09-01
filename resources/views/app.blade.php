@@ -23,7 +23,7 @@
     <script src="/js/pizza.js" type="text/javascript"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/r/zf-5.5.2/jq-2.1.4,pdfmake-0.1.18,dt-1.10.8,b-1.0.1,b-html5-1.0.1,b-print-1.0.1,cr-1.2.0,fh-3.0.0,r-1.0.7/datatables.min.js"></script>
-    
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -47,16 +47,19 @@
  			<ul>
 	            @if (Auth::guest())
 					<li class="divider"></li>
+					<li><a href="/login" class="top-button-logout">Login</a></li>
+					<li class="divider"></li>
 					<li><a href="/register" class="top-button-logout">Register</a></li>
 				@else
-					<li><a href="/options" class="top-buttons" style="padding-left: 50px;padding-right: 50px; font-size: large;">Options</a></li>
-					
+				<li class="divider"></li>
+					<li><a href="/options" class="top-buttons" style="padding-left: 40px;padding-right: 40px;">Options</a></li>
+					<li class="divider"></li>
 					<li><a href="/logout" class="top-button-logout">Logout</a></li>
 				@endif
  			</ul>
 		 </section>
 	</nav>
-	
+
 	@yield('content')
 
     <div class="zurb-footer-bottom">
@@ -80,6 +83,6 @@
 		$(document).foundation();
 	    $('.ddatepicker').fdatepicker();
 	</script>
-	
+
 </body>
 </html>

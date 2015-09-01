@@ -32,11 +32,21 @@ Route::get('/edit/{id}', 'EditController@index');
 Route::post('/edit/{id}', 'EditController@postIndex');
 Route::get('/edit/{id}/delete', 'EditController@deleteTransaction');
 
-Route::get('/edit/payment/{id}', 'EditController@paymentIndex');
-Route::post('/edit/payment/{id}', 'EditController@paymentPostIndex');
+Route::get('/edit/payment/{type}/{id}', 'EditController@paymentIndex');
+Route::post('/edit/payment/{type}/{id}', 'EditController@paymentPostIndex');
+Route::get('/edit/payment/{type}/{id}/delete', 'EditController@paymentDelete');
 
 Route::get('/edit/income/{id}', 'EditController@incomeIndex');
 Route::post('/edit/income/{id}', 'EditController@incomePostIndex');
+Route::get('/edit/income/{id}/delete', 'EditController@incomeDelete');
+
+Route::get('/edit/bank/{id}', 'EditController@bankIndex');
+Route::post('/edit/bank/{id}', 'EditController@bankPostIndex');
+Route::get('/edit/bank/{id}/delete', 'EditController@bankDelete');
+
+Route::get('/edit/cc/{id}', 'EditController@ccIndex');
+Route::post('/edit/cc/{id}', 'EditController@ccPostIndex');
+Route::get('/edit/cc/{id}/delete', 'EditController@ccDelete');
 
 Route::controllers([
    'password' => 'Auth\PasswordController',

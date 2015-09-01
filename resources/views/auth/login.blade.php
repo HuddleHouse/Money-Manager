@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-<div class="large-4 medium-4 small-12 small-centered columns">
+<div class="large-4 medium-6 small-12 small-centered columns" style="padding-bottom: 25px;">
 
   <div class="login-box">
 @if (count($errors) > 0)

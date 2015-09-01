@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Month;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -24,7 +25,7 @@ class AuthController extends Controller
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
-	private $redirectTo = '/';
+	private $redirectTo = '/home';
 
     /**
      * Create a new authentication controller instance.
@@ -59,10 +60,21 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+        $month = new Month;
+        $month->userID = $user->id;
+        $month->cash = 0.00;
+        $month->income = 0.00;
+        $month->profit = 0.00;
+        $month->name = date('M');
+        $month->year = date('Y');
+        $month->save();
+        
+        return $user;
+        
     }
 }

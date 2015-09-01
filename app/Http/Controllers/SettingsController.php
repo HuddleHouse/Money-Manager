@@ -10,6 +10,8 @@ use App\Type;
 use App\Account;
 use App\Month;
 use App\Income;
+use App\Transfer;
+use App\Payment;
 
 class SettingsController extends Controller {
 
@@ -68,7 +70,6 @@ class SettingsController extends Controller {
 			$transaction->date = Input::get('date');
 			$transaction->amount = Input::get('amount');
 			$transaction->typeID = Input::get('type');
-            $transaction->type = "credit";
 			$transaction->note = Input::get('note');
 			$transaction->month = $month;
 
@@ -76,6 +77,7 @@ class SettingsController extends Controller {
 				$month = Month::where('userID', $user->id)->where('name', $month)->where('year', date("Y"))->first();
                 $month->cash -= Input::get('amount');
                 $month->save();
+                $transaction->accountID = 0;
 			}
 			else {
 				$transaction->accountID = $id;
@@ -108,46 +110,77 @@ class SettingsController extends Controller {
             $amount = Input::get('amount');
             $bankID = Input::get('bank');
             $ccID = Input::get('payment');
-
-            $transaction = new Transaction;
-            $transaction->userID = $user->id;
-            $transaction->date = Input::get('date');
-            $transaction->amount = $amount;
-            $transaction->note = Input::get('note');
-            $transaction->month = $month;
-            $transaction->accountID = $bankID;
-            $transaction->ccID = $ccID;
-
+            $note = Input::get('note');
+			$date = Input::get('date');	
+			
             if($ccID == 'cash'){
-                $month = Month::where('userID', $user->id)->where('name', $month)->first();
-                $month->cash = $month->cash + $amount;
-                $month->save();
+                $month2 = Month::where('userID', $user->id)->where('name', $month)->first();
+                $month2->cash = $month2->cash + $amount;
+                $month2->save();
 
-                $bank = Account::find($bankID);
-                $bank->balance = $bank->balance - $amount;
-                $bank->save();
-
-                $transaction->type = 'cash';
+				if($bankID == 'cash') {
+					$month2 = Month::where('userID', $user->id)->where('name', $month)->first();
+	                $month2->cash = $month2->cash - $amount;
+	                $month2->save();
+				}
+				else {
+					$bank = Account::find($bankID);
+		            $bank->balance = $bank->balance - $amount;
+	                $bank->save();
+				}
+                
+                $transfer = new Transfer;
+                $transfer->userID = $user->id;
+                $transfer->creditAccountID = $bankID;
+                $transfer->debitAccountID = 0;
+                $transfer->amount = $amount;
+                $transfer->note = $note;
+                $transfer->date = $date;
+                $transfer->month = $month;
+                $transfer->save();
             }
             else {
-                $bank = Account::find($bankID);
-                $cc = Account::find($ccID);
-
-                $bank->balance = $bank->balance - $amount;
+	            $cc = Account::find($ccID);
+                if($bankID == 'cash') {
+					$month2 = Month::where('userID', $user->id)->where('name', $month)->first();
+	                $month2->cash = $month2->cash - $amount;
+	                $month2->save();
+				}
+				else {
+					$bank = Account::find($bankID);
+		            $bank->balance = $bank->balance - $amount;
+	                $bank->save();
+				}                
 
                 if($cc->accountType == 'b'){
+	                //transfer
 	                $cc->balance = $cc->balance + $amount;
+	                $transfer = new Transfer;
+	                $transfer->userID = $user->id;
+	                $transfer->creditAccountID = $bankID;
+	                $transfer->debitAccountID = $ccID;
+	                $transfer->amount = $amount;
+	                $transfer->note = $note;
+	                $transfer->date = $date;
+	                $transfer->month = $month;
+	                $transfer->save();
                 }
                 else {
+	                //payment
 	                $cc->balance = $cc->balance - $amount;
+	                $payment = new Payment;
+	                $payment->userID = $user->id;
+	                $payment->creditAccountID = $bankID;
+	                $payment->debitAccountID = $ccID;
+	                $payment->amount = $amount;
+	                $payment->note = $note;
+	                $payment->date = $date;
+	                $payment->month = $month;
+	                $payment->save();
                 }
 
-                $bank->save();
                 $cc->save();
-                $transaction->type = 'payment';
             }
-
-            $transaction->save();
 
             return redirect('options')->with('message', 'Payment saved successfully.');
         }

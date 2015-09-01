@@ -19,7 +19,7 @@ body {
 	.chart {
 		margin-top:-8em;
 	}
-	
+
 	div#my-cool-chart {
 		margin-top:-8em;
 	}
@@ -43,31 +43,55 @@ body {
     padding-bottom: 20px;
 }
 .button {
-	background-color: #27ae60 !important;
+	display: inline-block;
+    background: none !important;
+    padding: 20px;
+    border: 2px solid #27ae60 !important;
+    color: #27ae60 !important;
+    text-align: center;
+    text-decoration: none !important;
+    text-transform: uppercase;
+    font-size: larger;
+    -webkit-transition: background-color 300ms ease-out;
+    -moz-transition: background-color 300ms ease-out;
+    -o-transition: background-color 300ms ease-out;
+    transition: background-color 300ms ease-out;
 }
 .button:hover {
-	background-color: #2ecc71 !important;
+	background-color: #27ae60 !important;
+	color: #fff !important;
 }
 .top-buttons{
-	background-color: #27ae60 !important;
+	background-color: #34495e !important;
 }
 .top-buttons:hover {
-	background-color: #2ecc71 !important;
+	background-color: #2c3e50 !important;
 }
 .top-button-logout{
-	background-color: #e67e22 !important;
+	background-color: #34495e !important;
 }
 .top-button-logout:hover{
-	background-color: #d35400 !important;
+	background-color: #2c3e50 !important;
 }
 .edit {
     padding-bottom: 5px !important;
     padding-top: 5px !important;
     margin-bottom: 0px !important;
+    width: 20px;
+    padding-left: 20px;
+}
+.button.info {
+	width: 20px !important;
+    padding-left: 20px !important;
 }
 .delete {
 	background-color: #e74c3c !important;
+    color: #F0F0F3 !important;
+    border: 2px solid #e74c3c !important;
 }
 .delete:hover {
 	background-color: #c0392b !important;
+}
+.divider {
+	    border-right: solid 1px #bdc3c7 !important;
 }

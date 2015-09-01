@@ -2,13 +2,15 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Month extends Model {
+class Payment extends Model {
 
 		/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'month';
+	protected $table = 'payments';
+
+
 
 }

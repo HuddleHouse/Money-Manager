@@ -5,9 +5,9 @@ My Money
 @endsection
 @section('content')
 <div class="row" style="margin-top: 50px;">
-	<center><h1>Edit Transaction</h1></center>
+	<center><h1>Edit Income</h1></center>
 	<div class="large-10 large-offset-1 columns">
-	<form class="form-horizontal" id="transForm" role="form" method="POST" action="/edit/{!! $id !!}">
+	<form class="form-horizontal" id="transForm" role="form" method="POST" action="/edit/income/{!! $id !!}">
 	<input type="hidden" name="_token" value="{!! csrf_token() !!}">
 	<input type="radio" name="form" value="payment" checked="true" style="display: none;">
 		<div class="row">
@@ -25,28 +25,16 @@ My Money
 	
 		<div class="row">
 	
-		    <div class="large-6 columns" style="margin-bottom: 15px;">
-			  <label>Category
-			    <select name="type">
-					@foreach($types as $type)
-						@if($transaction->typeID == $type->id)
-							<option value="{{ $type->id }}" selected>{{ $type->name }}</option>
-						@else
-							<option value="{{ $type->id }}">{{ $type->name }}</option>
-						@endif
-					@endforeach
-			    </select>
-			  </label>
-			</div>
-	
-		    <div class="large-6 columns">
-			  <label>Credit Account
-			    <select name="payment">
+		 <div class="large-12 columns">
+			  <label>Bank Account
+			    <select name="bank">
 					@foreach($accounts as $account)
-						@if($transaction->accountID == $account->id)
-							<option value="{{ $account->id }}" selected>{{ $account->name }}</option>
-						@else
-							<option value="{{ $account->id }}">{{ $account->name }}</option>
+						@if($account->accountType == 'b')
+							@if($transaction->accountID == $account->id)
+								<option value="{{ $account->id }}" selected>{{ $account->name }}</option>
+							@else
+								<option value="{{ $account->id }}">{{ $account->name }}</option>
+							@endif
 						@endif
 					@endforeach
 					@if($transaction->accountID == 0)
@@ -56,7 +44,7 @@ My Money
 					@endif
 			    </select>
 			  </label>
-			</div>
+		 </div>
 		</div>
 		<div class="row">
 		    <div class="large-12 columns" style="padding-top: 15px;">
@@ -68,7 +56,7 @@ My Money
 	    <div class="row">
 	    	<div class="large-6 columns" style="padding-top: 20px;">
 				<input type="submit" class="button" value="Update">
-				<a href="/edit/{!! $id!!}/delete" class="button delete" id="delete">Delete</a>
+				<a href="/edit/income/{!! $id!!}/delete" class="button delete" id="delete">Delete</a>
 	    	</div>
 	    </div>
 		</form>

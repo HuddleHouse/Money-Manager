@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('inspire')
                  ->hourly();
 		$schedule->command('updateMonth')
-				->dailyAt('0:05');
+				->dailyAt('0:03');
     }
    
 }

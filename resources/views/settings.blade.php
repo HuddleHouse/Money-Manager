@@ -35,10 +35,13 @@ My Money - Settings
 	<div class="row">
 		<div class="large-12 columns">
 		<h1>TO-DO</h1>
-		Login forgot password link.
-		Register
-		edit types
-		change password
+		edit types<br>
+		change password<br>
+		add an option to show/hide a transaction on the piechart<br>
+		add field to edit value on edit bank accounts/credit cards<br>
+		recurring payments<br>
+		view all transactions bar graph<br>
+		add an option to a transaction where you can add a credit.
 		</div>
 	</div>
 
@@ -86,7 +89,7 @@ My Money - Settings
     </div>
     <div class="row">
     	<div class="large-6 columns" style="padding-top: 20px;">
-			<input type="submit" class="button" value="Add Transaction">
+			<input type="submit" class="button" value="Add Income">
     	</div>
     </div>
 	</form>
@@ -151,7 +154,7 @@ My Money - Settings
     </div>
     <div class="row">
     	<div class="large-6 columns" style="padding-top: 20px;">
-			<input type="submit" class="button" value="Add Transaction">
+			<input type="submit" class="button" value="Add Payment/Transfer">
     	</div>
     </div>
 	</form>

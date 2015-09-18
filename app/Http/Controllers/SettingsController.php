@@ -64,6 +64,7 @@ class SettingsController extends Controller {
 		if(Input::get('form') == 'trans'){
             $monthNum = substr(Input::get('date'), 0, 2);
             $month = date('M', mktime(0, 0, 0, $monthNum, 10));
+            $year = substr(Input::get('date'), -4);
 
 			$transaction = new Transaction;
 			$transaction->userID = $user->id;
@@ -71,6 +72,7 @@ class SettingsController extends Controller {
 			$transaction->amount = Input::get('amount');
 			$transaction->typeID = Input::get('type');
 			$transaction->note = Input::get('note');
+			$transaction->year = $year;
 			$transaction->month = $month;
 
 			if($id == 'cash'){
@@ -107,12 +109,13 @@ class SettingsController extends Controller {
         else if(Input::get('form') == 'payment'){
             $monthNum = substr(Input::get('date'), 0, 2);
             $month = date('M', mktime(0, 0, 0, $monthNum, 10));
+            $year = substr(Input::get('date'), -4);
             $amount = Input::get('amount');
             $bankID = Input::get('bank');
             $ccID = Input::get('payment');
             $note = Input::get('note');
-			$date = Input::get('date');	
-			
+			$date = Input::get('date');
+
             if($ccID == 'cash'){
                 $month2 = Month::where('userID', $user->id)->where('name', $month)->first();
                 $month2->cash = $month2->cash + $amount;
@@ -128,7 +131,7 @@ class SettingsController extends Controller {
 		            $bank->balance = $bank->balance - $amount;
 	                $bank->save();
 				}
-                
+
                 $transfer = new Transfer;
                 $transfer->userID = $user->id;
                 $transfer->creditAccountID = $bankID;
@@ -136,11 +139,13 @@ class SettingsController extends Controller {
                 $transfer->amount = $amount;
                 $transfer->note = $note;
                 $transfer->date = $date;
+                $transfer->year = $year;
                 $transfer->month = $month;
                 $transfer->save();
             }
             else {
 	            $cc = Account::find($ccID);
+
                 if($bankID == 'cash') {
 					$month2 = Month::where('userID', $user->id)->where('name', $month)->first();
 	                $month2->cash = $month2->cash - $amount;
@@ -150,7 +155,7 @@ class SettingsController extends Controller {
 					$bank = Account::find($bankID);
 		            $bank->balance = $bank->balance - $amount;
 	                $bank->save();
-				}                
+				}
 
                 if($cc->accountType == 'b'){
 	                //transfer
@@ -162,6 +167,7 @@ class SettingsController extends Controller {
 	                $transfer->amount = $amount;
 	                $transfer->note = $note;
 	                $transfer->date = $date;
+	                $transfer->year = $year;
 	                $transfer->month = $month;
 	                $transfer->save();
                 }
@@ -175,6 +181,7 @@ class SettingsController extends Controller {
 	                $payment->amount = $amount;
 	                $payment->note = $note;
 	                $payment->date = $date;
+	                $payment->year = $year;
 	                $payment->month = $month;
 	                $payment->save();
                 }
@@ -212,6 +219,7 @@ class SettingsController extends Controller {
             $month = date('M', mktime(0, 0, 0, $monthNum, 10));
             $amount = Input::get('amount');
             $bankID = Input::get('bank');
+            $year = substr(Input::get('date'), -4);
 
             $income = new Income;
             $income->userID = $user->id;
@@ -219,6 +227,7 @@ class SettingsController extends Controller {
             $income->amount = $amount;
             $income->note = Input::get('note');
             $income->date = $date;
+            $income->year = $year;
 
             if($bankID == "cash"){
                 $income->accountID = 0;

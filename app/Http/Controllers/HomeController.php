@@ -40,14 +40,15 @@ class HomeController extends Controller {
 		
 		$user = Auth::user();
 		$month = date("M");
+		$year = date('Y');
 		
 		$banks = DB::select('select * from accounts where userID = :id and accountType = "b"', ['id' => $user->id]);
 		$cc = DB::select('select * from accounts where userID = :id and accountType = "c"', ['id' => $user->id]);
-		$credits = DB::select('select * from income where userID = :id', ['id' => $user->id]);
+		$credits = DB::select('select * from income where userID = :id and month = :month and year = :year', ['id' => $user->id, 'month' => $month, 'year' => $year]);
 		$accounts = DB::select('select * from accounts where userID = :id', ['id' => $user->id]);
-		$debits = DB::select('select * from transactions where userID = :id and month = :month', ['id' => $user->id, 'month' => $month]);
-		$transfers = DB::select('select * from transfers where userID = :id and month = :month', ['id' => $user->id, 'month' => $month]);
-		$payments = DB::select('select * from payments where userID = :id and month = :month', ['id' => $user->id, 'month' => $month]);
+		$debits = DB::select('select * from transactions where userID = :id and month = :month and year = :year', ['id' => $user->id, 'month' => $month, 'year' => $year]);
+		$transfers = DB::select('select * from transfers where userID = :id and month = :month and year = :year', ['id' => $user->id, 'month' => $month, 'year' => $year]);
+		$payments = DB::select('select * from payments where userID = :id and month = :month and year = :year', ['id' => $user->id, 'month' => $month, 'year' => $year]);
 		
 		$accountNames = [];	
 		foreach($accounts as $account) {
@@ -63,20 +64,22 @@ class HomeController extends Controller {
 			$income += $credit->amount;
 		}
 		foreach($debits as $debit){
-			if($debit->accountID == 0){
+			if($debit->accountID == 0 && $debit->month == date("M")){
 				$spent = $spent + $debit->amount;
 			}
 			else {
 				//check to make sure teh cc id is not a bank if so this is a transfer and doesn't get counted
 				$account2 = Account::find($debit->accountID);
-				if($account2->accountType == 'b'){
+				if($account2->accountType == 'b' && $debit->month == date("M")){
 					//this is a payment on a cc
 					$spent = $spent + $debit->amount;
 				}
 			}
 		}
 		foreach($payments as $payment){
-			$spent = $spent + $payment->amount;
+			if($payment->month == date("M")) {
+				$spent = $spent + $payment->amount;
+			}
 		}
 		$profit = $income - $spent;
 		
@@ -92,15 +95,17 @@ class HomeController extends Controller {
 
 		foreach($types as $type){
 			$typeNames = $typeNames + [$type->id => $type->name];
-			$tmp = DB::select('select * from transactions where userID = :id and month = :month and typeID = :typeID', ['id' => $user->id, 'month' => $month, 'typeID' => $type->id]);
+			$tmp = DB::select('select * from transactions where userID = :id and month = :month and typeID = :typeID and year = :year', ['id' => $user->id, 'month' => $month, 'typeID' => $type->id, 'year' => $year]);
 			$sum = 0;
 			foreach($tmp as $i){
 				$sum = $sum + $i->amount;
 			}
 			if($sum != 0){
-				array_push($spending, ["name"=>$type->name, "sum" => $sum]);
+				array_push($spending, ["sum" => $sum, "name"=>$type->name]);
 			}
 		}
+		arsort($spending);
+		
 		$cash = DB::select('select cash from month where userID = :id and name = :month and year = :year', ['id' => $user->id, 'month' => $month, 'year' => date("Y")]);
 		
 		return view('home')->with('banks', $banks)->with('cc', $cc)->with('income', $income)->with('profit', $profit)->with('spending', $spending)->with('cash', $cash)->with('accountNames', $accountNames)->with('typeNames', $typeNames)->with('transactions', $debits)->with('incomeData', $credits)->with('payments', $payments)->with('transfers', $transfers);

@@ -8,31 +8,25 @@ My Money
 
   <div class="row">
   	<div class="small-12 columns">
-	  	<center><h1><?php $mytime = Carbon\Carbon::now(); echo $mytime->toFormattedDateString(); ?></h1></center>
+	  	<center><h1>{!! $month !!}, {!! $year !!}</h1></center>
 	  	@if(Session::has('message'))
   			<div class="alert alert-info" style="color: #008CBA; padding-bottom: 15px;"> {{Session::get('message')}} </div>
   		@endif
   	</div>
   </div>
   <div class="row">
-  	<div class="large-4 columns">
+  	<div class="large-6 columns">
 		<div class="panel callout radius">
 		  <center><h3>Income</h3>
 		  <h4>${!! number_format($income, 2, '.', ',') !!}</h4></center>
 		</div>
 	</div>
-	<div class="large-4 columns">
+	<div class="large-6 columns">
 		<div class="panel callout radius">
 			<center><h3>Profit</h3>
 			<h4>${!! number_format($profit, 2, '.', ',') !!}</h4></center>
 		</div>
 	</div>
-	  <div class="large-4 columns">
-		  <div class="panel callout radius">
-			  <center><h3>Cash</h3>
-				  <h4>${!! number_format($cash[0]->cash, 2, '.', ',') !!}</h4></center>
-		  </div>
-	  </div>
   </div>
 	<div class="row" >
 		@if($spending)
@@ -51,39 +45,11 @@ My Money
 				</ul>
 			</div>
 		</div>
-	</div>
-	<div class="row" style="text-align: center;">
-		<div class="large-6 columns">
-		  <center><h3 style="color: #008CBA;">Bank Accounts</h3></center>
-			@foreach($banks as $bank)
-				<hr>
-				<a href="/edit/bank/{!! $bank->id !!}" style="float: right; margin-right: 20px;"> <img src="/images/settings-icon.png" width="25px"></a>
-				<h5>{!! $bank->name !!}</h5>
-				<p><a style="color: #009933;">${!! number_format($bank->balance, 2, '.', ','); !!}</a></p>
-				
-			@endforeach
-		</div>
-		<div class="large-6 columns">	
-		  <center><h3 style="color: #008CBA;">Credit Cards</h3></center>
-			@foreach($cc as $c)
-				<hr>
-				<a href="/edit/cc/{!! $c->id !!}" style="float: right; margin-right: 20px;"> <img src="/images/settings-icon.png" width="25px"></a>
-				<h5>{!! $c->name !!}</h5>
-				<div class="small-6 columns">
-					<p>Balance:<br><a style="color: #009933;">${!! number_format($c->balance, 2, '.', ','); !!}</a></p>
-				</div>
-				<div class="small-6 columns">
-					<p>Credit Limit:<br><a style="color: #009933;"> ${!! number_format($c->creditLimit, 2, '.', ','); !!}</a></p>
-				</div>
-				
-			@endforeach
-		</div>
-	</div>
-	  
+	</div>	  
 
 <div class="row chart">
 	<div class="large-12 columns">
-		<center><h3 style="color: #008CBA;"><?= date("F") ?>'s Transactions</h3></center>
+		<center><h3 style="color: #008CBA;">Transactions</h3></center>
 		<div id="example_wrapper" class="dataTables_wrapper dt-foundation ">
 			<table id="example" class="tdisplay dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="example_info" style="width: 100%;">
 				<thead>
@@ -199,8 +165,7 @@ My Money
 </div>
 <div class="row">
 	<div class="large-6 large-offset-3 columns" style="padding-top: 20px;">
-		<input type="submit" class="button expand" value="View SPending">
-		<a href="/view-all" class="button exapnd">View all months</a>
+		<input type="submit" class="button" value="View SPending">
 	</div>
 </div>
 </form>

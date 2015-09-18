@@ -38,6 +38,7 @@
       <div class="row">
         <div class="large-12 large-centered columns">
           <input type="submit" class="button expand" value="Log In"/>
+		  <a href="/password/email"><p style="color:#3498db;">Forgot password?</p></a>
         </div>
       </div>
     </form>

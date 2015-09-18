@@ -2,9 +2,8 @@
 
 @section('content')
 <div class="container-fluid">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="panel panel-default">
+	<div class="large-4 medium-6 small-12 small-centered columns" style="padding-bottom: 25px;">
+		<div class="login-box">
 				<div class="panel-heading">Reset Password</div>
 				<div class="panel-body">
 					@if (count($errors) > 0)
@@ -45,7 +44,7 @@
 
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">
+								<button type="submit" class="button expand">
 									Reset Password
 								</button>
 							</div>
@@ -54,6 +53,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
 </div>
 @endsection
